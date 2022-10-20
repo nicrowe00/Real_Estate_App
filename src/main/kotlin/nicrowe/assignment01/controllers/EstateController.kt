@@ -19,6 +19,8 @@ class EstateController {
                 2 -> search()
                 3 -> add()
                 4 -> update()
+                5 -> delete()
+                6 -> deleteAll()
                 -1 -> println("Exiting App")
                 else -> println("Invalid Option")
             }
@@ -48,5 +50,13 @@ class EstateController {
 
     fun update(){
         estateView.updateEstate()
+    }
+
+    fun delete(){
+        estateView.deleteEstate()
+    }
+
+    fun deleteAll(){
+        estateView.deleteAllEstates()
     }
 }

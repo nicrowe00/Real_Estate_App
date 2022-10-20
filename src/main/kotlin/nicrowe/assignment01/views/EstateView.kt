@@ -26,6 +26,8 @@ class EstateView {
         println(" 2. Search Estates")
         println(" 3. Add Estate")
         println(" 4. Update Estate")
+        println(" 5. Delete Estate")
+        println(" 6. Delete All Estates")
         println("-1. Exit")
         println()
         print("Enter Option : ")
@@ -138,6 +140,7 @@ class EstateView {
                 ps!!.setString(9, estimated)
                 ps!!.setString(10, residents)
                 ps!!.execute()
+                println("Estate added.")
                 true
             }
             else {
@@ -233,6 +236,57 @@ class EstateView {
             }
         } catch (ex: SQLException){
             println("An error has occurred. The most likely error is that an ID that was already in use was entered. Please try again or exit the app")
+        }
+        return ""
+    }
+
+    fun deleteEstate() : Any {
+        try {
+            println("Delete an Estate")
+            println()
+            listEstates()
+            println()
+            println("Select an Estate to delete by its ID: ")
+            var inputID = readLine()!!
+            if (inputID == "" || !inputID.matches("-?[0-9]+(\\.[0-9]+)?".toRegex())) {
+                println("You must enter a number")
+                false
+            }
+            var deleteID = inputID
+            var deleteQuery = ("delete from estates where id=" + deleteID)
+            ps = con!!.prepareStatement(deleteQuery)
+            rs = st.executeQuery("select * from estates where id=" + deleteID)
+            if(rs!!.next()) {
+                ps!!.executeUpdate()
+                println("Estate deleted.")
+                true
+            }
+            else{
+                println("There was no Estate to delete.")
+            }
+        } catch (ex: SQLException){
+            println("An error has occurred.")
+        }
+        return ""
+    }
+
+    fun deleteAllEstates() : Any {
+        try{
+            println("Delete All Estates")
+            println()
+            var deleteAllQuery = "delete from estates"
+            ps = con!!.prepareStatement(deleteAllQuery)
+            rs = st!!.executeQuery("select * from estates")
+            if(rs!!.next()){
+                ps!!.executeUpdate()
+                println("All Estates Deleted.")
+                true
+            } else {
+                println("No Estates to Delete.")
+                false
+            }
+        } catch (ex: SQLException){
+            println("An error has occurred.")
         }
         return ""
     }
