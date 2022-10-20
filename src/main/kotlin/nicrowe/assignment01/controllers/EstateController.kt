@@ -17,6 +17,7 @@ class EstateController {
             when (input) {
                 1 -> list()
                 2 -> search()
+                3 -> add()
                 -1 -> println("Exiting App")
                 else -> println("Invalid Option")
             }
@@ -36,5 +37,11 @@ class EstateController {
 
     fun search(){
         estateView.searchEstate()
+    }
+
+    fun add(){
+        println("Add an Estate")
+        println()
+        estateView.addEstate()
     }
 }

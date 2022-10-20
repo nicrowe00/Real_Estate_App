@@ -12,6 +12,7 @@ class EstateView {
     val st = con!!.createStatement()
     var rs: ResultSet? = null
     var ps: PreparedStatement? = null
+    var id: Long = 0; var name = ""; var phonenumber = 0; var type = ""; var address = ""; var city = ""; var county = ""; var eircode = ""; var estimated = 0; var residents = 0
 
     fun menu(): Int {
 
@@ -21,6 +22,7 @@ class EstateView {
         println("MAIN MENU")
         println(" 1. List Estates")
         println(" 2. Search Estates")
+        println(" 3. Add Estate")
         println("-1. Exit")
         println()
         print("Enter Option : ")
@@ -69,5 +71,81 @@ class EstateView {
         }catch (ex: SQLException) {
             println("Invalid Option")
         }
+    }
+
+    fun addEstate() : Any {
+        try{
+            var addEstate : String = "insert into estates (id, name, phonenumber, type, address, city, county, eircode, estimated, residents) values (?,?,?,?,?,?,?,?,?,?)"
+            ps = con!!.prepareStatement(addEstate)
+            listEstates()
+            println()
+            println("Enter a new ID: ")
+            var estateid = readLine()!!
+            if (estateid == "" || !estateid.matches("-?[0-9]+(\\.[0-9]+)?".toRegex())){
+                println("You must enter a number for this category")
+                println()
+                return false
+            }
+            id = estateid.toLong()
+            print("Enter your full name: ")
+            name = readLine()!!
+            print("Enter your phone number: ")
+            var estatePhone = readLine()!!
+            if (estatePhone == "" || !estatePhone.matches("-?[0-9]+(\\.[0-9]+)?".toRegex()) || estatePhone.length > 16 || estatePhone.length < 4){
+                println("You must enter a valid phone number for this category.")
+                println()
+                return false
+            }
+            phonenumber = estatePhone.toInt()
+            print("Enter Estate type (House, Apartment, Bungalow, Condominium, Mansion or Villa): ")
+            type = readLine()!!
+            print("Enter an Address, e.g. 506 Greystone Street, 20 Collins Hall: ")
+            address = readLine()!!
+            print("Enter City: ")
+            city = readLine()!!
+            print("Enter County: ")
+            county = readLine()!!
+            print("Enter Eircode: ")
+            eircode = readLine()!!
+            print("Enter Estimated Value of Estate: ")
+            var estateEstimated = readLine()!!
+            if (estateEstimated == "" || !estateEstimated.matches("-?[0-9]+(\\.[0-9]+)?".toRegex())){
+                println("You must enter a number for this category.")
+                println()
+                return false
+            }
+            print("Enter number of Residents in Estate: ")
+            var estateResidents = readLine()!!
+            if (estateResidents == "" || !estateResidents.matches("-?[0-9]+(\\.[0-9]+)?".toRegex())){
+                println("You must enter a number for this category.")
+                println()
+                return false
+            }
+            residents = estateResidents.toInt()
+
+            return if (name.isNotEmpty() && type.isNotEmpty() && address.isNotEmpty() && city.isNotEmpty() && county.isNotEmpty() && eircode.isNotEmpty()){
+                ps!!.setString(1, id.toString())
+                ps!!.setString(2, name)
+                ps!!.setString(3, phonenumber.toString())
+                ps!!.setString(4, type)
+                ps!!.setString(5, address)
+                ps!!.setString(6, city)
+                ps!!.setString(7, county)
+                ps!!.setString(8, eircode)
+                ps!!.setString(9, estimated.toString())
+                ps!!.setString(10, residents.toString())
+                ps!!.execute()
+                true
+            }
+            else {
+                println()
+                println("You must enter data for every category")
+                false
+            }
+            } catch (ex: SQLException){
+                println()
+            println("An error has occurred. The most likely error is that an ID that was already in use was entered. Please try again or exit the app")
+        }
+        return ""
     }
 }
