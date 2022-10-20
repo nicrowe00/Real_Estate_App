@@ -1,1 +1,4 @@
 estates.json
+/build/
+/.gradle/
+/.idea/
