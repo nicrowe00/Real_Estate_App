@@ -44,7 +44,6 @@ class EstateController {
 
     fun add(){
         println("Add an Estate")
-        println()
         estateView.addEstate()
     }
 
