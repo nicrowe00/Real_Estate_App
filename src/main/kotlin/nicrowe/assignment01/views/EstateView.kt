@@ -5,14 +5,13 @@ import java.sql.DriverManager
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
-import nicrowe.assignment01.views.HouseView
 
 class EstateView {
-    val houseView = HouseView()
+    val houseView = MenuView()
 
     var rs: ResultSet? = null
     var ps: PreparedStatement? = null
-    val con = DriverManager.getConnection("","", "")
+    val con = DriverManager.getConnection()
     val st = con!!.createStatement(
         ResultSet.TYPE_SCROLL_INSENSITIVE,
         ResultSet.CONCUR_UPDATABLE
@@ -31,6 +30,7 @@ class EstateView {
         println(" 4. Update Estate")
         println(" 5. Delete Estate")
         println(" 6. Delete All Estates")
+        println(" 7. Filter List")
         println("-1. Exit")
         println()
         print("Enter Option: ")
@@ -104,7 +104,7 @@ class EstateView {
                 return false
             }
             phonenumber = estatePhone
-            input = houseMenu()
+            input = houseView.houseMenu()
             when (input) {
                 1 -> type = "Detached House"
                 2 -> type = "Semi-Detached House"
@@ -232,7 +232,7 @@ class EstateView {
                 return false
             }
             phonenumber = estatePhone
-            input = houseMenu()
+            input = houseView.houseMenu()
             when (input) {
                 1 -> type = "Detached House"
                 2 -> type = "Semi-Detached House"
@@ -376,9 +376,5 @@ class EstateView {
             println("An error has occurred.")
         }
         return ""
-    }
-
-    fun houseMenu() : Int {
-        return houseView.menu()
     }
 }
