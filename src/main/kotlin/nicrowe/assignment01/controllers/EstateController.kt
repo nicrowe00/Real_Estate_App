@@ -1,9 +1,11 @@
 package nicrowe.assignment01.controllers;
 
 import nicrowe.assignment01.views.EstateView
+import nicrowe.assignment01.views.FilterView
 
 class EstateController {
     val estateView = EstateView()
+    val filterView = FilterView()
 
     init {
         println("Launching Real Estate App")
@@ -21,6 +23,7 @@ class EstateController {
                 4 -> update()
                 5 -> delete()
                 6 -> deleteAll()
+                7 -> filterView.filterMenu()
                 -1 -> println("Exiting App")
                 else -> println("Invalid Option")
             }
@@ -44,7 +47,6 @@ class EstateController {
 
     fun add(){
         println("Add an Estate")
-        println()
         estateView.addEstate()
     }
 
