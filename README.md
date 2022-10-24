@@ -12,11 +12,6 @@ To install this application onto your local machine, simply clone the repository
 
 If you are using a Windows machine you may need to use the git command line application to use git commands which can be found here: https://git-scm.com/download/win
 
-Once the repository has been cloned onto your local machine, to use the console version of the application, navigate to the cloned repo in your command line and use the following command:
-> git checkout console
-
-This command will automatically create a console branch that will contain all the files found on the console branch on the official GitHub repo
-
 Open the repo in your preferred editor, such as VSCode, IntelliJ or Eclipse. 
 
 In order to connect to a mySQL database, you must provide the details for the database in line 14 of EstateView.kts and in line 13 of FilterView.kts
